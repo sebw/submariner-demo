@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: submariner-demo
+  namespace: submariner-demo
+spec:
+  selector:
+    matchLabels:
+      app: submariner-demo
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: submariner-demo
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: registry.access.redhat.com/ubi8/php-74@sha256:6ec64ea86fcb8639a6d4d71f0bc01e60c7eea406affb45e677eee0fb786ca551
+        env:
+        - name: BACKEND_SERVICE_HOST
+          value: backend.submariner-demo.svc.clusterset.local
+        ports:
+        - containerPort: 80

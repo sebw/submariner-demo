@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: submariner-demo
+  namespace: submariner-demo
+  labels:
+    app: submariner-demo
+    tier: frontend
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: submariner-demo
+    tier: frontend

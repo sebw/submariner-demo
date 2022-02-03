@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: submariner-demo
+  namespace: submariner-demo
+spec:
+  host: frontend.apps.cluster-b8c4v.b8c4v.sandbox1438.opentlc.com
+  port:
+    targetPort: 80
+  to:
+    kind: Service
+    name: submariner-demo
+    weight: 100
