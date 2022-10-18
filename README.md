@@ -93,3 +93,9 @@ oc apply -f 03-redis-follower-deployment.yaml
 Repeat the steps for the multi-cluster scenario by applying the correct configuration files to the correct clusters.
 
 Success!
+
+# Sources
+
+https://rcarrata.github.io/openshift/rhacm-submariner-2/
+https://hackmd.io/@-NygPmSYSkulcwHiqKwsuw/submariner
+https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html-single/add-ons/index#enable-service-discovery-submariner
