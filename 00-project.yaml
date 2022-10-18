@@ -1,0 +1,6 @@
+apiVersion: project.openshift.io/v1
+description: "Demo Submariner" 
+displayName: submariner-demo
+kind: ProjectRequest
+metadata:
+    name: submariner-demo
