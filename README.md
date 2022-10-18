@@ -15,11 +15,11 @@ So instead of an app, we are going to write directly to the leader using the `re
 
 ## Scenario 1 - single cluster deployment
 
-TODO insert image
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/single.png)
 
 ## Scenario 2 - multi cluster deployment
 
-TODO insert image
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/multi.png)
 
 ### Preparing the environment
 
@@ -110,6 +110,20 @@ oc apply -f 03-redis-follower-deployment.yaml
 Repeat the steps for the multi-cluster scenario by applying the correct configuration files to the correct clusters.
 
 Success!
+
+## Troubleshooting
+
+You can use the `nettest` container image to troubleshoot:
+
+```bash
+oc -n default run submariner-test --rm -ti --image quay.io/submariner/nettest -- /bin/bash
+```
+
+When inside the container:
+
+```bash
+curl redis-leader.demo.svc.clusterset.local:6379
+```
 
 # Sources
 
