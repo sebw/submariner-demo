@@ -1,9 +1,7 @@
-# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-follower
-  namespace: submariner-demo
   labels:
     app: redis-follower
 spec:
@@ -21,7 +19,7 @@ spec:
         image: quay.io/swains/redis-follower:1.0
         env:
         - name: REDIS_LEADER_SERVICE_HOST
-          value: redis-leader.submariner-demo.svc.clusterset.local
+          value: redis-leader-00demo-local-cluster.svc.clusterset.local
         resources:
           requests:
             cpu: 100m
