@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-leader
-  namespace: submariner-demo
   labels:
     app: redis-leader
 spec:

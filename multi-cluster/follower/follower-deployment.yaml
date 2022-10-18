@@ -19,7 +19,7 @@ spec:
         image: quay.io/swains/redis-follower:1.0
         env:
         - name: REDIS_LEADER_SERVICE_HOST
-          value: redis-leader-00demo-local-cluster.svc.clusterset.local
+          value: redis-leader.swains.svc.clusterset.local
         resources:
           requests:
             cpu: 100m
