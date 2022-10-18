@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: follower
-        image: gcr.io/google_samples/gb-redis-follower:v2
+        image: ghcr.io/sebw/redis-follower:1.0
         env:
         - name: REDIS_LEADER_SERVICE_HOST
           value: redis-leader.submariner-demo.svc.clusterset.local
