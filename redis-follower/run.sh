@@ -1,0 +1,1 @@
+redis-server --replicaof ${REDIS_LEADER_SERVICE_HOST} 6379
