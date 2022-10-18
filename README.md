@@ -11,7 +11,7 @@ For the sake of simplicity, this demo doesn't showcase a frontend application wr
 
 We can imagine any kind of application (todo list, guestbook, etc.) in any kind of language (Python, Go, etc.) writing to the leader node.
 
-So instead of an app, we are going to write directly to the leader using the `redis-cli` utility and check on the follower if data has been replicated.
+So instead of an app, we are going to write directly to the leader using the `redis-cli` utility and check on the follower if data have been replicated.
 
 ## Scenario 1 - single cluster deployment
 
@@ -52,7 +52,7 @@ oc apply -f 03-redis-follower-deployment.yaml
 # 127.0.0.1:6379> get meetup
 # "cool"
 
-# Now go to the terminal of the follower pod and verify data has been replicated
+# Now go to the terminal of the follower pod and verify data have been replicated
 # redis-cli
 # 127.0.0.1:6379> get meetup
 # "cool"
