@@ -20,8 +20,6 @@ spec:
       - name: follower
         image: gcr.io/google_samples/gb-redis-follower:v2
         env:
-        - name: GET_HOSTS_FROM
-          value: env
         - name: REDIS_LEADER_SERVICE_HOST
           value: redis-leader.submariner-demo.svc.clusterset.local
         resources:
