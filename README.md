@@ -50,7 +50,7 @@ description: "Demo Submariner"
 displayName: submariner-demo
 kind: ProjectRequest
 metadata:
-	name: submariner-demo
+  name: submariner-demo
 ```
 
 ```bash
