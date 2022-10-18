@@ -21,8 +21,25 @@ TODO insert image
 
 TODO insert image
 
-## Redis demo
+### Preparing the environment
 
+Two clusters are present and managed by ACM.
+
+Create a clusterset and put both OCP clusters in it.
+
+Then install the submariner add-on on each.
+
+The installation will take a few minutes until all ticks are green.
+
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install1.png)
+
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install2.png)
+
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install3.png)
+
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install4.png)
+
+![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install5.png)
 
 
 ## If you don't want to deploy things using ACM
