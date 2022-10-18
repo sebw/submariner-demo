@@ -29,7 +29,7 @@ Two clusters are present and managed by ACM.
 
 Both clusters reside in a clusterset. The submariner addon must be installed on both nodes.
 
-The installation takes a few minutes. until all ticks are green.
+The installation takes a few minutes. Wait until all ticks are green.
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install1.png)
 
@@ -40,6 +40,16 @@ The installation takes a few minutes. until all ticks are green.
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install4.png)
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install5.png)
+
+We deploy the leader on cluster1, using label dc=a.
+
+We deploy the follower on cluster2, using label dc=b.
+
+When the leader application is deployed, a `ServiceExport` (a CRD) is created.
+
+The ServiceExport automatically triggers the creation of a ServiceImport on cluster2.
+
+The ServiceImport will trigger the Lighthouse DNS to create the DNS record.
 
 ## Redis CLI howto
 
@@ -85,6 +95,12 @@ When inside the container:
 ```bash
 curl redis-leader.demo.svc.clusterset.local:6379
 ```
+
+# Container used for this demo
+
+The leader uses the official Redis image `docker.io/redis:7.0.5`.
+
+The follower is based on the same image and is customized. The Dockerfile can be found in the `redis-follower` folder on this repository.
 
 # Sources
 
