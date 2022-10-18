@@ -27,32 +27,64 @@ TODO insert image
 
 ## If you don't want to deploy things using ACM
 
+### Clone repo
+
 ```bash
-# Clone repo
 git clone https://github.com/sebw/submariner-demo.git
-cd single-cluster
+cd single-cluster/
+```
 
-# Create project
+### Log into your OCP
+
+```bash
+# Login
+oc login --token=sha256~XYZ --server=https://your-ocp:6443
+```
+### Create project
+
+Edit `00-project.yaml`
+
+```yaml
+apiVersion: project.openshift.io/v1
+description: "Demo Submariner"
+displayName: submariner-demo
+kind: ProjectRequest
+metadata:
+	name: submariner-demo
+```
+
+```bash
 oc apply -f 00-project.yaml
+```
+### Deploy leader
 
-# Deploy leader
+```bash
 oc apply -f 01-redis-leader-deployment.yaml
+```
+### Create leader service
 
-# Create leader service
+```bash
 oc apply -f 02-redis-leader-service.yaml
+```
+### Deploy follower
 
-# Deploy follower
+```bash
 oc apply -f 03-redis-follower-deployment.yaml
+```
+### From now, go in the terminal of the leader pod
 
-# From now, go in the terminal of the leader pod
+```bash
 # redis-cli
 # 127.0.0.1:6379> get meetup
 # 127.0.0.1:6379> set meetup cool
 # OK
 # 127.0.0.1:6379> get meetup
 # "cool"
+```
 
-# Now go to the terminal of the follower pod and verify data have been replicated
+### Check replication on follower pod
+
+```bash
 # redis-cli
 # 127.0.0.1:6379> get meetup
 # "cool"
