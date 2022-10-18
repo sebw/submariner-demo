@@ -90,4 +90,6 @@ oc apply -f 03-redis-follower-deployment.yaml
 # "cool"
 ```
 
+Repeat the steps for the multi-cluster scenario by applying the correct configuration files to the correct clusters.
+
 Success!
