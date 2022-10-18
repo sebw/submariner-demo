@@ -1,35 +1,35 @@
 # Demo Advanced Cluster Security for Kubernetes Submariner Addon
 
-In this demo we deploy a simple Redis cluster on OpenShift Container Platform (OCP) using Advanced Cluster Manager (ACM).
+In this demo we will deploy a simple Redis cluster on OpenShift Container Platform (OCP) using Advanced Cluster Manager (ACM).
+
+Redis is an in-memory data structure store, used as a distributed, in-memory key–value database, cache and message broker, with optional durability.
 
 The Redis cluster is made of two pods:
 
 - a leader: where the data is written by your applications
 - a follower: a replica syncing data from the leader
 
-For the sake of simplicity, this demo doesn't showcase a frontend application writing data to Redis, nor does it support persistent storage.
+For the sake of simplicity, this demo doesn't showcase a frontend application writing data to Redis. Instead we will write data with the `redis-cli` tool, directly from the terminal of the leader pod.
 
-We can imagine any kind of application (todo list, guestbook, etc.) in any kind of language (Python, Go, etc.) writing to the leader node.
+We could imagine any kind of application (todo list, guestbook, etc.) in any kind of language (Python, Go, etc.) writing to the leader node.
 
-So instead of an app, we are going to write directly to the leader using the `redis-cli` utility and check on the follower if data have been replicated.
+## Single vs multi cluster
 
-## Scenario 1 - single cluster deployment
+### Single Cluster (not demoed)
+
+Without Submariner, all components of an application must reside on the same cluster.
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/single.png)
 
-## Scenario 2 - multi cluster deployment
+### Multi Cluster (demoed)
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/multi.png)
 
-### Preparing the environment
-
 Two clusters are present and managed by ACM.
 
-Create a clusterset and put both OCP clusters in it.
+Both clusters reside in a clusterset. The submariner addon must be installed on both nodes.
 
-Then install the submariner add-on on each.
-
-The installation will take a few minutes until all ticks are green.
+The installation takes a few minutes. until all ticks are green.
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install1.png)
 
@@ -41,54 +41,14 @@ The installation will take a few minutes until all ticks are green.
 
 ![](https://raw.githubusercontent.com/sebw/submariner-demo/master/screenshots/submariner-install5.png)
 
+## Redis CLI howto
 
-## If you don't want to deploy things using ACM
-
-### Clone repo
-
-```bash
-git clone https://github.com/sebw/submariner-demo.git
-cd single-cluster/
-```
-
-### Log into your OCP
+### Writing data on the leader
 
 ```bash
-# Login
-oc login --token=sha256~XYZ --server=https://your-ocp:6443
+oc login --token=sha256~XXX --server=https://cluster1:6443
+oc rsh $(oc -n demo get pod -o name|head -n1)
 ```
-### Create project
-
-Edit `00-project.yaml`
-
-```yaml
-apiVersion: project.openshift.io/v1
-description: "Demo Submariner"
-displayName: submariner-demo
-kind: ProjectRequest
-metadata:
-  name: submariner-demo
-```
-
-```bash
-oc apply -f 00-project.yaml
-```
-### Deploy leader
-
-```bash
-oc apply -f 01-redis-leader-deployment.yaml
-```
-### Create leader service
-
-```bash
-oc apply -f 02-redis-leader-service.yaml
-```
-### Deploy follower
-
-```bash
-oc apply -f 03-redis-follower-deployment.yaml
-```
-### From now, go in the terminal of the leader pod
 
 ```bash
 # redis-cli
@@ -99,7 +59,12 @@ oc apply -f 03-redis-follower-deployment.yaml
 # "cool"
 ```
 
-### Check replication on follower pod
+### Checking replication on the follower
+
+```bash
+oc login --token=sha256~XXX --server=https://cluster2:6443
+oc rsh $(oc -n demo get pod -o name|head -n1)
+```
 
 ```bash
 # redis-cli
@@ -107,13 +72,9 @@ oc apply -f 03-redis-follower-deployment.yaml
 # "cool"
 ```
 
-Repeat the steps for the multi-cluster scenario by applying the correct configuration files to the correct clusters.
-
-Success!
-
 ## Troubleshooting
 
-You can use the `nettest` container image to troubleshoot:
+You can use the `nettest` container image to troubleshoot potential problems:
 
 ```bash
 oc -n default run submariner-test --rm -ti --image quay.io/submariner/nettest -- /bin/bash
@@ -128,5 +89,7 @@ curl redis-leader.demo.svc.clusterset.local:6379
 # Sources
 
 https://rcarrata.github.io/openshift/rhacm-submariner-2/
+
 https://hackmd.io/@-NygPmSYSkulcwHiqKwsuw/submariner
+
 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html-single/add-ons/index#enable-service-discovery-submariner

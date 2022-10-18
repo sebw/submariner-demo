@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
       - name: follower
-        image: gcr.io/google_samples/gb-redis-follower:v2
+        image: quay.io/swains/redis-follower:1.0
         env:
         - name: GET_HOSTS_FROM
           value: env
         - name: REDIS_LEADER_SERVICE_HOST
-          value: redis-leader.submariner-demo.svc.cluster.local
+          value: redis-leader.demo.svc.cluster.local
         resources:
           requests:
             cpu: 100m
