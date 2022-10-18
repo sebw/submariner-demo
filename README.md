@@ -7,7 +7,7 @@ The Redis cluster is made of two pods:
 - a leader: where the data is written by your applications
 - a follower: a replica syncing data from the leader
 
-For the sake of simplicity, this demo doesn't showcase a frontend application writing data to Redis.
+For the sake of simplicity, this demo doesn't showcase a frontend application writing data to Redis, nor does it support persistent storage.
 
 We can imagine any kind of application (todo list, guestbook, etc.) in any kind of language (Python, Go, etc.) writing to the leader node.
 
