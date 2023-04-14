@@ -1,0 +1,8 @@
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  name: demo-job-001
+  namespace: default
+spec:
+  tower_auth_secret: aap
+  job_template_name: Job
